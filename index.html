@@ -1,0 +1,36 @@
+<html>
+<head>
+	<style type="text/css">
+	    body, html
+	    {
+	        margin: 0; padding: 0; height: 100%; overflow: hidden;
+	    }
+
+	    iframe
+	    {
+	        position:absolute; left: 0; right: 0; bottom: 0; top: 0px; width: 100$; height: 100%;
+	    }
+	</style>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io();
+  var uId;
+  socket.on('foo', function(msg) {
+  	uId = msg.uid;
+  	document.getElementById('insert').innerHTML = '<iframe src="main?uid='+uId+'" style="height: 100%; width: 100%; margin: 0; padding: 0; border:0;">';
+  });
+  socket.on('bar', function() {
+  	document.getElementById('insert').innerHTML = 'Time\'s up!';
+  });
+  socket.on('new', function(msg) {
+  	document.getElementById('insert').innerHTML = 'Queue number: ' + msg;
+  });
+
+</script>
+</head>
+<body>
+	<span id='insert'>
+		Hello World!
+	</span>
+</body>
+</html>
